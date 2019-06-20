@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.j1902.mapper.RealNameMapper">
+    <sql id="realName">
+        userName,
+        email,
+        realName,
+        IDCard,
+        phone,
+        img,
+        code,
+        realTime,
+        type
+    </sql>
+    <insert id="createRealByRealName" parameterType="RealName">
+        INSERT
+        zc_user_realName
+        (<include refid="realName"></include>)
+        VALUES
+        (#{userName},#{email},#{realName},#{IDCard},#{phone},#{img},#{code},#{realTime},#{type})
+    </insert>
+    <select id="selectRealNameByUname" resultType="RealName">
+        SELECT 
+        *
+        FROM
+        zc_user_realName
+        WHERE
+        userName=#{uname}
+    </select>
+    <select id="selectAllByCode" resultType="RealName">
+        SELECT
+        <include refid="realName"></include>
+        FROM
+        zc_user_realName
+        WHERE
+        code=#{code}
+    </select>
+    <update id="updateCodeByUserName" parameterType="RealName">
+        UPDATE
+        zc_user_realName
+        SET
+         code=#{code},AuditMind=#{AuditMind}
+         WHERE
+           userName=#{userName}
+    </update>
+
+
+
+    <insert id="addUserRole" parameterType="RealName">
+        INSERT
+        zc_user_role (userid,role_id)
+        VALUES  (#{userid},#{roleid})
+    </insert>
+</mapper>

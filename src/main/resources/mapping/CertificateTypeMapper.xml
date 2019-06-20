@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qf.j1902.mapper.CertificateTypeMapper">
+    <delete id="deleteAll" parameterType="CertificateType">
+        DELETE  FROM zc_certificate_type
+    </delete>
+    <insert id="insertCertificateType" parameterType="CertificateType">
+        INSERT
+        zc_certificate_type
+        (type,mingcheng)
+        VALUES
+        (#{type},#{mingcheng})
+    </insert>
+
+    <select id="findByTpe" resultType="CertificateType" >
+        SELECT * FROM  zc_certificate_type WHERE type=#{type}
+    </select>
+</mapper>

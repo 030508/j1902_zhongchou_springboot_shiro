@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.j1902.mapper.PermissionMapper">
+    <resultMap id="permsMap" type="Permission">
+        <id property="perId" column="per_id"/>
+        <result property="perName" column="per_name"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuType" column="menu_type"/>
+        <result property="menuUrl" column="menu_url"/>
+        <result property="menuCode" column="menu_code"/>
+        <result property="parentCode" column="parent_code"/>
+        <result property="perDesc" column="per_desc"/>
+        <result property="ifVilid" column="if_vilid"/>
+    </resultMap>
+    <sql id="perAllid">
+        per_id,
+        per_name,
+        menu_name,
+        menu_type,
+        menu_url,
+        menu_code,
+        parent_code,
+        per_desc,
+        if_vilid
+    </sql>
+    <select id="findPermsById" resultMap="permsMap">
+       SELECT
+        p.*
+        FROM
+        zc_sys_userinfo u,
+        zc_user_role  ur,
+        zc_sys_role   r,
+        zc_role_permission rp,
+        zc_permission p
+        WHERE
+        u.userid = ur.userid
+        AND ur.role_id =r.role_id
+        AND r.role_id = rp.role_id
+        AND rp.per_id = p.per_id
+        AND u.userName = #{userName}
+    </select>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.j1902.mapper.LabelMapper">
+    <resultMap id="labelMap" type="Label">
+        <id property="labelid" column="labelid"/>
+        <result property="labelName" column="labelName" />
+        <result property="explain" column="explain" />
+        <collection property="tags" column="labelid" ofType="com.qf.j1902.pojo.Tag"
+                    select="com.qf.j1902.mapper.TagMapper.findTagsByLabelId">
+        </collection>
+
+    </resultMap>
+    <select id="findAllByCateName" parameterType="string"   resultMap="labelMap">
+        SELECT l.* FROM
+        zc_category c,
+        zc_cate_label cl,
+        zc_label l
+
+        WHERE
+        c.cateid = cl.cateid
+        AND  cl.labelid = l.labelid
+        AND c.cname = #{name}
+    </select>
+</mapper>
